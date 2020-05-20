@@ -22,9 +22,7 @@ public:
     ~Widget();
 
 public:
-    QPushButton *checkBomBtn;
-    QLineEdit *lineEditMatNum;
-    QPushButton *execBtn;
+    QPushButton *execPushbtn;
 
 private:
     Ui::Widget *ui;

@@ -12,13 +12,13 @@ Widget::Widget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
 
     //material widgets
-    checkBomBtn = new QPushButton("查询料号");
+    QPushButton *btnCheckBom = new QPushButton("查询料号");
     QLabel *labelMatNum = new QLabel("料号");
-    lineEditMatNum = new QLineEdit();
+    QLineEdit *lineEditMatNum = new QLineEdit();
     QHBoxLayout *matLayout= new QHBoxLayout();
     matLayout->addWidget(labelMatNum);
     matLayout->addWidget(lineEditMatNum);
-    matLayout->addWidget(checkBomBtn);
+    matLayout->addWidget(btnCheckBom);
 
 
     //check widgets
@@ -42,11 +42,11 @@ Widget::Widget(QWidget *parent)
     usrLayout->addWidget(usrManLabel);
 
     //exec widgets
-    execBtn = new QPushButton("重置所有信息");
-    execBtn->setFixedSize(350,20);
+    execPushbtn = new QPushButton("重置所有信息");
+    execPushbtn->setFixedSize(350,20);
 
     QHBoxLayout *execLayout = new QHBoxLayout();
-    execLayout->addWidget(execBtn);
+    execLayout->addWidget(execPushbtn);
 
 
     //layout

@@ -19,11 +19,11 @@ signals:
 public:
     QSqlDatabase msdb;
 
-    QString  msdbQuery(QString query);
+    int msdbQuery(QString query);
     int connectMSsql();
     int testing();
 public slots:
-    void execPushbtnClicked();
+    void execPushbtnClicked(QString string);
 
 };
 

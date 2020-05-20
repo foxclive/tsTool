@@ -4,8 +4,6 @@
 #include <QObject>
 #include "widget.h"
 #include "sqlconnect.h"
-#include <QDebug>
-#include <QString>
 
 class sqlCtrl : public QObject
 {
@@ -13,15 +11,7 @@ class sqlCtrl : public QObject
 public:
     explicit sqlCtrl(QObject *parent = nullptr);
 
-public:
-    Widget *w;
-    SQLconnect *sqlCon;
-
 signals:
-
-public slots:
-    int execBtnClicked();
-    int checkBomBtnClicked();
 
 //public:
 //    sqlCtrl();
