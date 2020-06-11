@@ -8,6 +8,9 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QObject>
+#include <QRegExp>
+#include <QRegExpValidator>
+#include <QComboBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -22,7 +25,15 @@ public:
     ~Widget();
 
 public:
-    QPushButton *execPushbtn;
+//    QRegExp *matNumRegExp;
+    QComboBox *DBComboxBox; //选择数据库
+    QPushButton *checkBomBtn;//查询料号按钮
+    QLineEdit *lineEditMatNum;//料号输入框
+    QLabel *chkManLabel;//审核人标签
+    QLabel *chkDateLabel;//审核日期
+    QLabel *usrManLabel;//用户标签
+    QLabel *usrDateLabel;//创建日期
+    QPushButton *execBtn;//执行按钮
 
 private:
     Ui::Widget *ui;

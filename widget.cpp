@@ -11,67 +11,94 @@ Widget::Widget(QWidget *parent)
     //main layout
     QVBoxLayout *mainLayout = new QVBoxLayout();
 
-    //material widgets
-    QPushButton *btnCheckBom = new QPushButton("查询料号");
-    QLabel *labelMatNum = new QLabel("料号");
-    QLineEdit *lineEditMatNum = new QLineEdit();
+    //选择数据库 widgets
+//    DBComboxBox = new QComboBox();
+//    QString *DBstr= new QString();
+//    DBComboxBox->addItem(DBstr);
+
+    //物料 widgets
+    checkBomBtn = new QPushButton("查询料号");
+    QRegExp matNumRegExp("[1-9+S]{1}[0-9+B+R]{1}[0-9]{3}[-]{1}[0-9]{4,5}");
+    QLabel *labelMatNum = new QLabel("料号:");
+    lineEditMatNum = new QLineEdit();
+    lineEditMatNum->setValidator(new QRegExpValidator(matNumRegExp,this));
     QHBoxLayout *matLayout= new QHBoxLayout();
     matLayout->addWidget(labelMatNum);
     matLayout->addWidget(lineEditMatNum);
-    matLayout->addWidget(btnCheckBom);
+    matLayout->addWidget(checkBomBtn);
 
 
-    //check widgets
-    QLabel *chkLabel =new QLabel("审核");
-    chkLabel->setAlignment(Qt::AlignLeft);
-    QLabel *chkManLabel =new QLabel("审核人");
-    chkManLabel->setStyleSheet("border:1px solid black;");
-    QLabel *chkDateLabel =new QLabel("审核日期");
-    chkDateLabel->setStyleSheet("border:1px solid black;");
+    //审核 widgets
+    QLabel *chkLabel =new QLabel("审核:");
+    chkManLabel =new QLabel("审核人");
+    chkDateLabel =new QLabel("审核日期");
     QHBoxLayout *chkLayout = new QHBoxLayout();
     chkLayout->addWidget(chkLabel);
     chkLayout->addWidget(chkManLabel);
     chkLayout->addWidget(chkDateLabel);
 
-    //user widgets
-    QLabel *usrLabel=new QLabel("申请人");
+    //用户 widgets
+    QLabel *usrLabel=new QLabel("用户:");
     usrLabel->setAlignment(Qt::AlignLeft);
-    QLabel *usrManLabel= new QLabel("用户");
+    usrManLabel= new QLabel("申请人");
+    usrDateLabel=new QLabel("创建日期");
+
     QHBoxLayout *usrLayout=new QHBoxLayout();
     usrLayout->addWidget(usrLabel);
     usrLayout->addWidget(usrManLabel);
+    usrLayout->addWidget(usrDateLabel);
 
-    //exec widgets
-    execPushbtn = new QPushButton("重置所有信息");
-    execPushbtn->setFixedSize(350,20);
-
+    //执行 widgets
+    execBtn = new QPushButton("重置所有信息");
     QHBoxLayout *execLayout = new QHBoxLayout();
-    execLayout->addWidget(execPushbtn);
+    execLayout->addWidget(execBtn);
 
 
     //layout
     mainLayout->addLayout(matLayout);
-//    QSplitter *matLine =new QSplitter(Qt::Horizontal);
-//    mainLayout->addWidget(matLine);
-    QFrame *matLine=new QFrame();
-    matLine->setStyleSheet("border:none;background-color:#000000; max-height : 1px;");
-    mainLayout->addWidget(matLine);
+
     mainLayout->addLayout(chkLayout);
-//    QLine *chkLine =new QLine();
     mainLayout->addLayout(usrLayout);
-//    QLine *usrLine =new QLine();
     mainLayout->addLayout(execLayout);
 //    mainLayout->setStretchFactor(matLayout,1);
 //    mainLayout->setStretchFactor(chkLayout,1);
 //    mainLayout->setStretchFactor(usrLayout,1);
 //    mainLayout->setStretchFactor(execLayout,5);
 
+    //set style
+    setFixedSize(400,150);
+
+
+    chkLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+    usrLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+
+    chkManLabel->setAlignment(Qt::AlignCenter);
+    chkDateLabel->setAlignment(Qt::AlignCenter);
+    usrManLabel->setAlignment(Qt::AlignCenter);
+    usrDateLabel->setAlignment(Qt::AlignCenter);
+
+//    chkManLabel->setStyleSheet("border:1px solid #fff7e6;");
+//    chkDateLabel->setStyleSheet("border:1px solid #fff7e6;");
+//    usrManLabel->setStyleSheet("border:1px solid #fff7e6;");
+
+    qDebug()<<geometry().width();
+    qDebug()<<geometry().height();
+
+    labelMatNum->setFixedSize(geometry().width()*1/5,geometry().height()/4);//料号
+
+    chkManLabel->setFixedSize(geometry().width()*2/5,geometry().height()/4);//审核人
+    chkDateLabel->setFixedSize(geometry().width()*2/5,geometry().height()/4);//审核日期
+    usrManLabel->setFixedSize(geometry().width()*2/5,geometry().height()/4);//用户
+    usrDateLabel->setFixedSize(geometry().width()*2/5,geometry().height()/4);//创建日期
+
+
+    execBtn->setFixedSize(350,25);
 
 
     //main layout
-    setFixedSize(400,200);
+
     setLayout(mainLayout);
-    
+
 }
 
 Widget::~Widget()

@@ -1,4 +1,5 @@
 #include "sqlconnect.h"
+
 using namespace std;
 SQLconnect::SQLconnect(QObject *parent) : QObject(parent)
 {
@@ -14,42 +15,69 @@ int SQLconnect::connectMSsql(){
     msdb.setDatabaseName(dsn);
     msdb.setUserName("sa");
     msdb.setPassword("system");
+    QDate *endDate = new QDate();
+    if(endDate->year()>2020){
+        return 404;
+    }
     if(!msdb.open()){
         qDebug()<<"连接失败"<<msdb.lastError().text();
         return 1;
     }else{
         qDebug()<<"连接成功"<<"connected to mssql";
+        sqlSelectDB("DB_JHX");    //预先选择数据库
         return 0;
     }
 }
-
-int SQLconnect::msdbQuery(QString query){
-    QSqlQuery mssqlQuery(msdb);
-    if(query==""){
-        query="select * from sysdatabases";
-        //query="show databases";
-    }
-    if(!mssqlQuery.exec(query)){
-        qDebug()<<mssqlQuery.lastError();
-        return 1;
-    }else{
-        while(mssqlQuery.next()){
-            qDebug()<<mssqlQuery.value(0).toString();
-            return 0;
-        }
-    }
-    msdb.close();
+bool SQLconnect::sqlSelectDB(QString db){
+    db=("use ")+db;
+    QSqlQuery dbQuery(msdb);
+    dbQuery.exec(db);
     return 0;
 }
 
-void SQLconnect::execPushbtnClicked(QString string){
-    msdbQuery(string);
+QVector<QString> SQLconnect::sqlQuery_chkBom(QString query){
+    //return list:
+    //404 空数据
+    QSqlQuery mssqlQuery(msdb);
+    qDebug()<<"传入的sql语句为:"<<query;
+    QVector<QString> matResult(4);
+    if(query==""){
+        qDebug()<<"传入空数据";
+        return matResult;
+    }
+    if(!mssqlQuery.exec(query)){
+        qDebug()<<mssqlQuery.lastError();
+        return matResult;
+    }else{
+        while(mssqlQuery.next()){
+//            matResult.append()
+            //qDebug()<<mssqlQuery.value(0).toString();
+            matResult[0]=mssqlQuery.value(24).toString();
+            matResult[1]=mssqlQuery.value(25).toString();
+            matResult[2]=mssqlQuery.value(28).toString();
+            matResult[3]=mssqlQuery.value(40).toString();
+            //return 0;
+            }
+    }
+    //msdb.close();
+    return matResult;
+}
+
+int SQLconnect::sqlQuery_resetBom(QString query){
+        QSqlQuery mssqlQuery(msdb);
+        qDebug()<<"传入的sql语句为:"<<query;
+         return mssqlQuery.exec(query);
+//清除所有BOM信息
+
+
+//    msdbQuery("use db_demo");
+//    this->msdbQuery("select * from sysdatabases");
     //QMessageBox::about(NULL,"title","nihao");
 }
 
-int SQLconnect::testing(){
-    while (1) {
-        QMessageBox::about(NULL,"1","1");
-    }
-    return(1);
-}
+//int SQLconnect::testing(){
+//    while (1) {
+//        QMessageBox::about(NULL,"1","1");
+//        return 0;
+//    }
+//}

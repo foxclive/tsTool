@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 #include <QtDebug>
+#include <QDate>
 
 class SQLconnect : public QObject
 {
@@ -18,12 +19,10 @@ signals:
 
 public:
     QSqlDatabase msdb;
-
-    int msdbQuery(QString query);
+    bool sqlSelectDB(QString db);
+    QVector<QString>  sqlQuery_chkBom(QString query);
     int connectMSsql();
-    int testing();
-public slots:
-    void execPushbtnClicked(QString string);
+    int sqlQuery_resetBom(QString query);
 
 };
 
