@@ -12,7 +12,9 @@ Widget::Widget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout();
 
     //选择数据库 widgets
-//    DBComboxBox = new QComboBox();
+    DBComboxBox = new QComboBox();
+    DBComboxBox->addItem(tr("惠州"));
+    DBComboxBox->addItem(tr("安徽"));
 //    QString *DBstr= new QString();
 //    DBComboxBox->addItem(DBstr);
 
@@ -23,6 +25,7 @@ Widget::Widget(QWidget *parent)
     lineEditMatNum = new QLineEdit();
     lineEditMatNum->setValidator(new QRegExpValidator(matNumRegExp,this));
     QHBoxLayout *matLayout= new QHBoxLayout();
+    matLayout->addWidget(DBComboxBox);
     matLayout->addWidget(labelMatNum);
     matLayout->addWidget(lineEditMatNum);
     matLayout->addWidget(checkBomBtn);

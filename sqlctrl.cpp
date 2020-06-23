@@ -7,6 +7,7 @@ sqlCtrl::sqlCtrl(QObject *parent) : QObject(parent)
 //    connect(w->execPushbtn,&QPushButton::clicked,sqlCon,&SQLconnect::execPushbtnClicked);//直接连接sqlCon, 无法传递参数, 测试.
     connect(w->checkBomBtn,&QPushButton::clicked,this,&sqlCtrl::bomBtnClicked);
     connect(w->execBtn,&QPushButton::clicked, this, &sqlCtrl::execBtnClicked);
+    connect(w->DBComboxBox, &QComboBox::currentTextChanged, this, &sqlCtrl::selectDB);
 
     w->show();
 }
@@ -53,4 +54,20 @@ int sqlCtrl::execBtnClicked(){
             qDebug()<<"野指针sqlCon";
             return 1;
         }
+}
+
+int sqlCtrl::selectDB(){
+    QString text= w->DBComboxBox->currentText();
+    if(text=="惠州"){
+        int i = sqlCon->sqlSelectDB("JHX");
+        qDebug()<<"selectDB JHX";
+        return i;
+    }else if(text=="安徽"){
+        int j = sqlCon->sqlSelectDB("MAS");
+        qDebug()<<"selectDB MAS";
+        return j;
+    }else{
+        qDebug()<<"ELES";
+        return 1;
+    }
 }

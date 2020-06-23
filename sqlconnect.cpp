@@ -25,6 +25,7 @@ int SQLconnect::connectMSsql(){
     }else{
         qDebug()<<"连接成功"<<"connected to mssql";
         sqlSelectDB("DB_JHX");    //预先选择数据库
+        qDebug()<<"select JHX DB as default database";
         return 0;
     }
 }

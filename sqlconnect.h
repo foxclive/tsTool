@@ -24,6 +24,7 @@ public:
     int connectMSsql();
     int sqlQuery_resetBom(QString query);
 
+
 };
 
 #endif // SQLCONNECT_H

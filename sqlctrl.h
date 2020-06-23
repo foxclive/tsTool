@@ -22,6 +22,7 @@ signals:
 public slots:
     int execBtnClicked();
     int bomBtnClicked();
+    int selectDB();
 
 //public:
 //    sqlCtrl();
